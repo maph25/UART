@@ -31,3 +31,8 @@ void UART_putString(UART_ChannelType uartChannel, sint8* string){
 	if(*string)
 		UART_putChar(uartChannel, *string++);
 }
+
+void UART0_Status_IRQHandler(void){
+	if(UART0->S1 & ~(UART_S1_RDRF_MASK))
+	UART0->D = 0;
+}
