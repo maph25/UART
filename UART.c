@@ -34,8 +34,10 @@ void UART_putString(UART_ChannelType uartChannel, sint8* string){
 }
 
 void UART0_RX_TX_IRQHandler(void){
-	if(UART0->S1 & ~(UART_S1_RDRF_MASK))
-	UART0->D = 0;
+	if(UART0->S1 & ~(UART_S1_RDRF_MASK)) {
+		UART0_MailBox.flag = TRUE;
+		UART0_MailBox.mailBox = UART0->D;
+	}
 }
 
 
