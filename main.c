@@ -11,12 +11,9 @@
 #include "MK64F12.h" /* include peripheral declarations */
 #include "UART.h"/**UART device driver*/
 #include "NVIC.h"/**NVIC device driver*/
+#include "stdio.h"
 
-#define DEBUG
 
-#ifdef DEBUG
-	#include "stdio.h"
-#endif
 /**This is mail box to received the information from the serial port*/
 extern UART_MailBoxType UART0_MailBox;
 

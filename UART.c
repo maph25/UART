@@ -20,6 +20,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 systemClk, UART_BaudRateType
 }
 void UART0_interruptEnable(UART_ChannelType uartChannel){
 	UART0->C2 = UART_C2_RIE_MASK;
+	NVIC_EnableIRQ(UART0_RX_TX_IRQn);
 }
 
 void UART_putChar (UART_ChannelType uartChannel, uint8 character){
@@ -32,7 +33,9 @@ void UART_putString(UART_ChannelType uartChannel, sint8* string){
 		UART_putChar(uartChannel, *string++);
 }
 
-void UART0_Status_IRQHandler(void){
+void UART0_RX_TX_IRQHandler(void){
 	if(UART0->S1 & ~(UART_S1_RDRF_MASK))
 	UART0->D = 0;
 }
+
+
