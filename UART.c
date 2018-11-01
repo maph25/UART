@@ -26,3 +26,8 @@ void UART_putChar (UART_ChannelType uartChannel, uint8 character){
 	if(UART0->S1 & ~(UART_S1_TDRE_MASK))
 	UART0->D = character;
 }
+
+void UART_putString(UART_ChannelType uartChannel, sint8* string){
+	if(*string)
+		UART_putChar(uartChannel, *string++);
+}
