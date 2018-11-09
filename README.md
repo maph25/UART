@@ -1,2 +1,2 @@
-# UART-I2C
-Modules: UART and I2C implementation on a LED matrix for the FRDM-K64
+# UART
+Modules: UART (FRDM-K64) Tera Term printing and communication
