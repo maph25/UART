@@ -43,7 +43,7 @@ typedef enum {BD_4800=4800,BD_9600=9600,BD_5600=5600, BD_115200=115200}UART_Baud
  	 \param[in]  void.
  	 \return void
  */
-void UART0_RX_TX_IRQHandler(void);
+void UART_RX_TX_IRQHandler(void);
 
 //
 /********************************************************************************************/
@@ -68,7 +68,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 systemClk, UART_BaudRateType
  	 \param[in]  uartChannel indicates the UART channel.
  	 \return void
  */
-void UART0_interruptEnable(UART_ChannelType uartChannel);
+void UART_interruptEnable(UART_ChannelType uartChannel);
 
 /********************************************************************************************/
 /********************************************************************************************/

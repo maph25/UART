@@ -78,9 +78,39 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 	}
 
 }
-void UART0_interruptEnable(UART_ChannelType uartChannel){
-	UART0->C2 = UART_C2_RIE_MASK;
-	NVIC_EnableIRQ(UART0_RX_TX_IRQn);
+void UART_interruptEnable(UART_ChannelType uartChannel){
+	switch(uartChannel){
+		case UART_0:{
+			UART0->C2 = UART_C2_RIE_MASK;
+			NVIC_EnableIRQ(UART0_RX_TX_IRQn);
+			break;
+		}
+		case UART_1:{
+			UART1->C2 = UART_C2_RIE_MASK;
+			NVIC_EnableIRQ(UART1_RX_TX_IRQn);
+			break;
+		}
+		case UART_2:{
+			UART2->C2 = UART_C2_RIE_MASK;
+			NVIC_EnableIRQ(UART2_RX_TX_IRQn);
+			break;
+		}
+		case UART_3:{
+			UART3->C2 = UART_C2_RIE_MASK;
+			NVIC_EnableIRQ(UART3_RX_TX_IRQn);
+			break;
+		}
+		case UART_4:{
+			UART4->C2 = UART_C2_RIE_MASK;
+			NVIC_EnableIRQ(UART4_RX_TX_IRQn);
+			break;
+		}
+		case UART_5:{
+			UART5->C2 = UART_C2_RIE_MASK;
+			NVIC_EnableIRQ(UART5_RX_TX_IRQn);
+			break;
+		}
+	}
 }
 
 void UART_putChar (UART_ChannelType uartChannel, uint8 character){

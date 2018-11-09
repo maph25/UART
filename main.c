@@ -30,7 +30,7 @@ int main(void)
 	printf("UART is configured");
 	//printf("UART is configured");
 	/**Enables the UART 0 interrupt*/
-	UART0_interruptEnable(UART_0);
+	UART_interruptEnable(UART_0);
 	/**Enables the UART 0 interrupt in the NVIC*/
 	NVIC_enableInterruptAndPriotity(UART0_IRQ, PRIORITY_10);
 
