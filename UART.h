@@ -13,6 +13,9 @@
 
 #include "DataTypeDefinitions.h"
 
+#define UART_BDH_MASK 0x1F00
+#define MULT (16u)
+#define SHIFT (8u)
 /**
  * \brief A mail box type definition for serial port
  */

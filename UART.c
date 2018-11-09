@@ -2,21 +2,81 @@
  * UART.c
  *
  *  Created on: Oct 22, 2018
- *      Author: Andy
+ *      Author: Andrea Perez ie698276@iteso.mx
  */
 #include "UART.h"
 #include "NVIC.h"
 #include "MK64F12.h"
 
 UART_MailBoxType UART0_MailBox = {0};
+uint16_t baudRate;
+uint8_t temp;
 
-void UART_init(UART_ChannelType uartChannel, uint32 systemClk, UART_BaudRateType baudRate){
-		SIM->SCGC4 = SIM_SCGC4_UART0_MASK;
-		UART0->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
-		UART0->BDH = 0;
-		UART0->BDL = 0x0B;
-		UART0->C4 = UART_C4_BRFA(baudRate);
-		UART0->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateType baud_rate){
+		baudRate = (system_clock)/(baud_rate*MULT);
+		switch(uartChannel){
+		case UART_0:{
+			SIM->SCGC4 = SIM_SCGC4_UART0_MASK;
+			temp = UART0->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			UART0->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART0->C1 = 0;
+			UART0->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
+			UART0->BDL = (baudRate & UART_BDL_SBR_MASK);
+			UART0->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+			break;
+		}
+		case UART_1:{
+			SIM->SCGC4 = SIM_SCGC4_UART1_MASK;
+			temp = UART1->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			UART1->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART1->C1 = 0;
+			UART1->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
+			UART1->BDL = (baudRate & UART_BDL_SBR_MASK);
+			UART1->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+			break;
+		}
+		case UART_2:{
+			SIM->SCGC4 = SIM_SCGC4_UART2_MASK;
+			temp = UART2->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			UART2->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART2->C1 = 0;
+			UART2->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
+			UART2->BDL = (baudRate & UART_BDL_SBR_MASK);
+			UART2->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+			break;
+		}
+		case UART_3:{
+			SIM->SCGC4 = SIM_SCGC4_UART3_MASK;
+			temp = UART3->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			UART3->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART3->C1 = 0;
+			UART3->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
+			UART3->BDL = (baudRate & UART_BDL_SBR_MASK);
+			UART3->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+			break;
+		}
+		case UART_4:{
+			SIM->SCGC1 = SIM_SCGC1_UART4_MASK;
+			temp = UART4->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			UART4->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART4->C1 = 0;
+			UART4->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
+			UART4->BDL = (baudRate & UART_BDL_SBR_MASK);
+			UART4->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+			break;
+		}
+		case UART_5:{
+			SIM->SCGC1 = SIM_SCGC1_UART4_MASK;
+			temp = UART5->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			UART5->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART5->C1 = 0;
+			UART5->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
+			UART5->BDL = (baudRate & UART_BDL_SBR_MASK);
+			UART5->C2 = UART_C2_RE_MASK |UART_C2_TE_MASK;
+			break;
+		}
+	}
+
 }
 void UART0_interruptEnable(UART_ChannelType uartChannel){
 	UART0->C2 = UART_C2_RIE_MASK;
