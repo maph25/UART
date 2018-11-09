@@ -116,37 +116,42 @@ void UART_interruptEnable(UART_ChannelType uartChannel){
 void UART_putChar (UART_ChannelType uartChannel, uint8 character){
 	switch(uartChannel){
 		case UART_0:{
-			while(!(UART0->S1) && (UART_S1_TDRE_MASK));
+			UART0->S1;
+			while(!(UART0->S1 & UART_S1_TC_MASK));
 			UART0->D = character;
 			break;
 		}
 		case UART_1:{
-			while(!(UART1->S1) && (UART_S1_TDRE_MASK));
+			UART1->S1;
+			while(!(UART1->S1 & UART_S1_TC_MASK));
 			UART1->D = character;
 			break;
 		}
 		case UART_2:{
-			while(!(UART2->S1) && (UART_S1_TDRE_MASK));
+			UART2->S1;
+			while(!(UART2->S1 & UART_S1_TC_MASK));
 			UART2->D = character;
 			break;
 		}
 		case UART_3:{
-			while(!(UART3->S1) && (UART_S1_TDRE_MASK));
+			UART3->S1;
+			while(!(UART3->S1 & UART_S1_TC_MASK));
 			UART3->D = character;
 			break;
 		}
 		case UART_4:{
-			while(!(UART4->S1) &&(UART_S1_TDRE_MASK));
+			UART4->S1;
+			while(!(UART4->S1 & UART_S1_TC_MASK));
 			UART4->D = character;
 			break;
 		}
 		case UART_5:{
-			while(!(UART5->S1) && (UART_S1_TDRE_MASK));
+			UART5->S1;
+			while(!(UART5->S1 & UART_S1_TC_MASK));
 			UART5->D = character;
 			break;
 		}
 	}
-
 }
 
 void UART_putString(UART_ChannelType uartChannel, sint8* string){
