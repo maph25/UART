@@ -8,8 +8,8 @@
 		To implement the UART_init function
  */
 
+#include <UART.h>/**UART device driver*/
 #include "MK64F12.h" /* include peripheral declarations */
-#include "UART.h"/**UART device driver*/
 #include "NVIC.h"/**NVIC device driver*/
 #include "stdio.h"
 
@@ -28,12 +28,17 @@ int main(void)
 	/**Configures UART 0 to transmit/receive at 11520 bauds with a 21 MHz of clock core*/
 	UART_init (UART_0,  21000000, BD_115200);
 		//printf("UART is configured");
+
+	NVIC_enableInterruptAndPriotity(UART0_IRQ, PRIORITY_10);
+		/**The following sentences send strings to PC using the UART_putString function. Also, the string
+
 	/**Enables the UART 0 interrupt*/
 	UART_interruptEnable(UART_0);
 	/**Enables the UART 0 interrupt in the NVIC*/
-	NVIC_enableInterruptAndPriotity(UART0_IRQ, PRIORITY_10);
-	/**The following sentences send strings to PC using the UART_putString function. Also, the string
-	 * is coded with terminal code*/
+
+		/**Enables interrupts*/
+	EnableInterrupts;
+
 	/** VT100 command for text in red and background in cyan*/
 	UART_putString(UART_0,"\033[0;32;46m");
 	/*VT100 command for clearing the screen*/
@@ -49,8 +54,7 @@ int main(void)
 	/** VT100 command for positioning the cursor in x and y position*/
 	UART_putString(UART_0,"\033[12;10H");
 
-	/**Enables interrupts*/
-	EnableInterrupts;
+
 
 	for(;;) {
 
