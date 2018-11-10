@@ -19,7 +19,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 			SIM->SCGC4 = SIM_SCGC4_UART0_MASK;
 			temp = (uint8_t)(2*((system_clock)/(baud_rate))-(baudRate*MULT_2));
 			temp &= UART_BDH_SBR_MASK;
-			UART0->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART0->C2 = (UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART0->C1 = 0;
 			UART0->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
 			UART0->BDL = (baudRate & UART_BDL_SBR_MASK);
@@ -29,7 +29,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 		case UART_1:{
 			SIM->SCGC4 = SIM_SCGC4_UART1_MASK;
 			temp = UART1->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
-			UART1->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART1->C2 = (UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART1->C1 = 0;
 			UART1->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
 			UART1->BDL = (baudRate & UART_BDL_SBR_MASK);
@@ -39,7 +39,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 		case UART_2:{
 			SIM->SCGC4 = SIM_SCGC4_UART2_MASK;
 			temp = UART2->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
-			UART2->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART2->C2 = (UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART2->C1 = 0;
 			UART2->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
 			UART2->BDL = (baudRate & UART_BDL_SBR_MASK);
@@ -49,7 +49,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 		case UART_3:{
 			SIM->SCGC4 = SIM_SCGC4_UART3_MASK;
 			temp = UART3->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
-			UART3->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART3->C2 = (UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART3->C1 = 0;
 			UART3->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
 			UART3->BDL = (baudRate & UART_BDL_SBR_MASK);
@@ -59,7 +59,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 		case UART_4:{
 			SIM->SCGC1 = SIM_SCGC1_UART4_MASK;
 			temp = UART4->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
-			UART4->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART4->C2 = (UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART4->C1 = 0;
 			UART4->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
 			UART4->BDL = (baudRate & UART_BDL_SBR_MASK);
@@ -69,7 +69,7 @@ void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateT
 		case UART_5:{
 			SIM->SCGC1 = SIM_SCGC1_UART4_MASK;
 			temp = UART5->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
-			UART5->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
+			UART5->C2 = (UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART5->C1 = 0;
 			UART5->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
 			UART5->BDL = (baudRate & UART_BDL_SBR_MASK);
