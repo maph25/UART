@@ -13,11 +13,12 @@ uint16_t baudRate;
 uint8_t temp;
 
 void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateType baud_rate){
-		baudRate = (system_clock)/(baud_rate*MULT);
+		baudRate =(uint16_t)(system_clock)/(baud_rate*MULT);
 		switch(uartChannel){
 		case UART_0:{
 			SIM->SCGC4 = SIM_SCGC4_UART0_MASK;
-			temp = UART0->BDH & ~(UART_BDH_SBR(UART_BDH_SBR_MASK));
+			temp = (uint8_t)(2*((system_clock)/(baud_rate))-(baudRate*MULT_2));
+			temp &= UART_BDH_SBR_MASK;
 			UART0->C2 = ~(UART_C2_RE_MASK | UART_C2_TE_MASK);
 			UART0->C1 = 0;
 			UART0->BDH = temp | (((baudRate & UART_BDH_MASK) >> SHIFT));
@@ -116,9 +117,8 @@ void UART_interruptEnable(UART_ChannelType uartChannel){
 void UART_putChar (UART_ChannelType uartChannel, uint8 character){
 	switch(uartChannel){
 		case UART_0:{
-			UART0->S1;
-			while(!(UART0->S1 & UART_S1_TC_MASK));
 			UART0->D = character;
+			while(!(UART0->S1 & UART_S1_TC_MASK));
 			break;
 		}
 		case UART_1:{

@@ -27,13 +27,12 @@ int main(void)
 	PORTB->PCR[17] = PORT_PCR_MUX(3);
 	/**Configures UART 0 to transmit/receive at 11520 bauds with a 21 MHz of clock core*/
 	UART_init (UART_0,  21000000, BD_115200);
-	printf("UART is configured");
-	//printf("UART is configured");
+		//printf("UART is configured");
 	/**Enables the UART 0 interrupt*/
 	UART_interruptEnable(UART_0);
 	/**Enables the UART 0 interrupt in the NVIC*/
 	NVIC_enableInterruptAndPriotity(UART0_IRQ, PRIORITY_10);
-
+	UART_putChar(UART_0,'a');
 	/**The following sentences send strings to PC using the UART_putString function. Also, the string
 	 * is coded with terminal code*/
 	/** VT100 command for text in red and background in cyan*/
